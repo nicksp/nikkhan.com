@@ -1,59 +1,83 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "nikkhan.com",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "The code for Nick's personal website",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
-  },
-  "dependencies": {
-    "gatsby": "^2.15.20",
-    "gatsby-image": "^2.2.20",
-    "gatsby-plugin-feed": "^2.3.13",
-    "gatsby-plugin-google-analytics": "^2.1.17",
-    "gatsby-plugin-manifest": "^2.2.18",
-    "gatsby-plugin-offline": "^3.0.8",
-    "gatsby-plugin-react-helmet": "^3.1.8",
-    "gatsby-plugin-sharp": "^2.2.25",
-    "gatsby-plugin-typography": "^2.3.8",
-    "gatsby-remark-copy-linked-files": "^2.1.20",
-    "gatsby-remark-images": "^3.1.23",
-    "gatsby-remark-prismjs": "^3.3.14",
-    "gatsby-remark-responsive-iframe": "^2.2.17",
-    "gatsby-remark-smartypants": "^2.1.9",
-    "gatsby-source-filesystem": "^2.1.26",
-    "gatsby-transformer-remark": "^2.6.24",
-    "gatsby-transformer-sharp": "^2.2.16",
-    "prismjs": "^1.17.1",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-helmet": "^5.2.1",
-    "react-typography": "^0.16.19",
-    "typeface-merriweather": "0.0.72",
-    "typeface-montserrat": "0.0.75",
-    "typography": "^0.16.19",
-    "typography-theme-wordpress-2016": "^0.16.19"
-  },
-  "devDependencies": {
-    "prettier": "^1.18.2"
-  },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
-  "main": "n/a",
+  "author": "Nick S. Plekhanov <nick.plekhanov@gmail.com> (https://nikkhan.com)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "https://github.com/nicksp/nikkhan.com"
   },
+  "bugs": {
+    "url": "https://github.com/nicksp/nikkhan.com/issues"
+  },
+  "keywords": [
+    "gatsby",
+    "personal",
+    "portfolio",
+    "blog"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/nicksp/nikkhan.com#readme",
   "scripts": {
+    "start": "npm run develop",
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
+    "format": "prettier --write \"src/**/*.{js,jsx,json,yml,yaml,ts,tsx,md,mdx}\"",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
+  },
+  "lint-staged": {
+    "*.{js,tsx,md,mdx}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
+    "@mdx-js/mdx": "^1.5.5",
+    "@mdx-js/react": "^1.5.5",
+    "gatsby": "^2.19.10",
+    "gatsby-image": "^2.2.39",
+    "gatsby-plugin-emotion": "^4.1.21",
+    "gatsby-plugin-feed": "^2.3.26",
+    "gatsby-plugin-google-analytics": "^2.1.34",
+    "gatsby-plugin-manifest": "^2.2.40",
+    "gatsby-plugin-mdx": "^1.0.69",
+    "gatsby-plugin-offline": "^3.0.33",
+    "gatsby-plugin-react-helmet": "^3.1.21",
+    "gatsby-plugin-sharp": "^2.4.4",
+    "gatsby-plugin-typography": "^2.3.21",
+    "gatsby-remark-copy-linked-files": "^2.1.36",
+    "gatsby-remark-embedder": "^1.11.0",
+    "gatsby-remark-images": "^3.1.43",
+    "gatsby-remark-prismjs": "^3.3.30",
+    "gatsby-remark-responsive-iframe": "^2.2.31",
+    "gatsby-remark-smartypants": "^2.1.20",
+    "gatsby-source-filesystem": "^2.1.47",
+    "gatsby-transformer-remark": "^2.6.49",
+    "gatsby-transformer-sharp": "^2.3.13",
+    "prism-themes": "^1.3.0",
+    "prismjs": "^1.19.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-helmet": "^5.2.1",
+    "react-typography": "^0.16.19",
+    "typeface-oswald": "^1.1.3",
+    "typeface-pt-sans": "^0.0.72",
+    "typography": "^0.16.19",
+    "typography-theme-stern-grove": "^0.16.19"
+  },
+  "devDependencies": {
+    "husky": "^4.2.1",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.19.1"
   }
 }

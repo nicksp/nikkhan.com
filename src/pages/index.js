@@ -1,75 +1,140 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
+import React from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
+import styled from '@emotion/styled'
+import { keyframes } from '@emotion/core'
+import Image from 'gatsby-image'
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { rhythm } from "../utils/typography"
+import Layout from '../components/layout'
+import Footer from '../components/footer'
+import SEO from '../components/seo'
 
-class BlogIndex extends React.Component {
-  render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const posts = data.allMarkdownRemark.edges
+const Wrapper = styled('div')`
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1280px;
 
-    return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <SEO title="All posts" />
-        <Bio />
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <article key={node.fields.slug}>
-              <header>
-                <h3
-                  style={{
-                    marginBottom: rhythm(1 / 4),
-                  }}
-                >
-                  <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
-                    {title}
-                  </Link>
-                </h3>
-                <small>{node.frontmatter.date}</small>
-              </header>
-              <section>
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: node.frontmatter.description || node.excerpt,
-                  }}
-                />
-              </section>
-            </article>
-          )
-        })}
-      </Layout>
-    )
+  @media (max-width: 800px) {
+    flex-direction: column;
+    height: unset;
+    margin: 0 auto;
   }
-}
+`
 
-export default BlogIndex
+const bounce = keyframes`
+  from, 20%, 53%, 80%, to {
+    transform: translate3d(0,0,0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -30px, 0);
+  }
+  70% {
+    transform: translate3d(0, -15px, 0);
+  }
+  90% {
+    transform: translate3d(0,-4px,0);
+  }
+`
 
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            description
+const ImageSection = styled('section')`
+  flex: 1;
+  padding: 0 2rem 0 2rem;
+  position: relative;
+
+  @media (max-width: 800px) {
+    padding: 2rem 1rem;
+    width: 100%;
+  }
+`
+
+const InfoSection = styled('section')`
+  box-sizing: border-box;
+  flex: 2;
+  padding: 0 2rem 0 2rem;
+
+  @media (max-width: 800px) {
+    padding: 2rem 2rem;
+    width: 100%;
+  }
+`
+
+const Header = styled('h1')`
+  animation: ${bounce} 1s ease;
+  animation-delay: 500ms;
+
+  @media (max-width: 400px) {
+    font-size: 2.8rem;
+  }
+`
+
+const Portrait = styled(Image)`
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+
+  @media (max-width: 800px) {
+    width: 60%;
+  }
+`
+
+const IndexPage = ({ location }) => {
+  const { avatar } = useStaticQuery(graphql`
+    query AvatarQuery {
+      avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
+        childImageSharp {
+          fluid(maxWidth: 1000) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
     }
-  }
-`
+  `)
+
+  return (
+    <Layout location={location}>
+      <SEO
+        title="Nick Khan"
+        keywords={[
+          `personal`,
+          `node.js`,
+          `javascript`,
+          `react`,
+          `architecture`,
+          `code design`
+        ]}
+      />
+      <Wrapper>
+        <ImageSection>
+          <Portrait
+            alt="Nick S. Plekhanov"
+            fluid={avatar.childImageSharp.fluid}
+          />
+        </ImageSection>
+
+        <InfoSection>
+          <p>
+            Hey folks{' '}
+            <span role="img" aria-label="wave emoji">
+              👋
+            </span>
+          </p>
+
+          <Header>I'm Nick.</Header>
+
+          <p>
+            I'm a full stack developer who specializes in Node.js services and
+            React applications.
+          </p>
+          <p>
+            This is my digital place to talk about software engineering, and
+            share insights from my experience.
+          </p>
+          <Footer />
+        </InfoSection>
+      </Wrapper>
+    </Layout>
+  )
+}
+
+export default IndexPage

@@ -1,14 +1,16 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
+import React, { Component } from 'react'
+import { Link, graphql } from 'gatsby'
+import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer'
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { rhythm, scale } from "../utils/typography"
+import Bio from '../components/bio'
+import Layout from '../components/layout'
+import SEO from '../components/seo'
 
-class BlogPostTemplate extends React.Component {
+import { rhythm, scale } from '../utils/typography'
+
+class BlogPostTemplate extends Component {
   render() {
-    const post = this.props.data.markdownRemark
+    const post = this.props.data.mdx
     const siteTitle = this.props.data.site.siteMetadata.title
     const { previous, next } = this.props.pageContext
 
@@ -23,7 +25,7 @@ class BlogPostTemplate extends React.Component {
             <h1
               style={{
                 marginTop: rhythm(1),
-                marginBottom: 0,
+                marginBottom: 0
               }}
             >
               {post.frontmatter.title}
@@ -32,16 +34,18 @@ class BlogPostTemplate extends React.Component {
               style={{
                 ...scale(-1 / 5),
                 display: `block`,
-                marginBottom: rhythm(1),
+                marginBottom: rhythm(1)
               }}
             >
               {post.frontmatter.date}
             </p>
           </header>
-          <section dangerouslySetInnerHTML={{ __html: post.html }} />
+          <section>
+            <MDXRenderer>{post.body}</MDXRenderer>
+          </section>
           <hr
             style={{
-              marginBottom: rhythm(1),
+              marginBottom: rhythm(1)
             }}
           />
           <footer>
@@ -56,19 +60,19 @@ class BlogPostTemplate extends React.Component {
               flexWrap: `wrap`,
               justifyContent: `space-between`,
               listStyle: `none`,
-              padding: 0,
+              padding: 0
             }}
           >
             <li>
               {previous && (
-                <Link to={previous.fields.slug} rel="prev">
+                <Link to={`blog${previous.fields.slug}`} rel="prev">
                   ← {previous.frontmatter.title}
                 </Link>
               )}
             </li>
             <li>
               {next && (
-                <Link to={next.fields.slug} rel="next">
+                <Link to={`blog${next.fields.slug}`} rel="next">
                   {next.frontmatter.title} →
                 </Link>
               )}
@@ -90,15 +94,15 @@ export const pageQuery = graphql`
         author
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    mdx(fields: { slug: { eq: $slug } }) {
       id
       excerpt(pruneLength: 160)
-      html
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
         description
       }
+      body
     }
   }
 `
