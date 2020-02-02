@@ -29,7 +29,11 @@ class Blog extends Component {
                     }}
                   >
                     <Link
-                      style={{ boxShadow: `none` }}
+                      style={{
+                        boxShadow: `none`,
+                        paddingTop: `2px`,
+                        lineHeight: 1.7
+                      }}
                       to={`blog${node.fields.slug}`}
                     >
                       {title}
