@@ -97,7 +97,7 @@ module.exports = {
         background_color: '#ffffff',
         theme_color: '#663399',
         display: 'minimal-ui',
-        icon: 'content/assets/gatsby-icon.png' // This path is relative to the root of the site.
+        icon: 'content/assets/nikkhan-icon.png'
       }
     },
     'gatsby-plugin-offline',
