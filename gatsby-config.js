@@ -22,6 +22,13 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId: 'UA-157548736-1',
+        head: true
+      }
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/content/blog`,
@@ -80,12 +87,6 @@ module.exports = {
     },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
-    {
-      resolve: 'gatsby-plugin-google-analytics',
-      options: {
-        //trackingId: `ADD YOUR TRACKING ID HERE`,
-      }
-    },
     // 'gatsby-plugin-feed',
     {
       resolve: 'gatsby-plugin-manifest',
