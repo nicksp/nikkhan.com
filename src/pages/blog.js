@@ -39,7 +39,9 @@ class Blog extends Component {
                       {title}
                     </Link>
                   </h3>
-                  <small>{node.frontmatter.date}</small>
+                  <small style={{ fontStyle: 'italic' }}>
+                    {node.frontmatter.date}
+                  </small>
                   <p
                     dangerouslySetInnerHTML={{
                       __html: node.frontmatter.description || node.excerpt

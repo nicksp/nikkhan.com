@@ -1,4 +1,5 @@
 import React from 'react'
+import { css } from '@emotion/core'
 import styled from '@emotion/styled'
 
 import Header from './header'
@@ -30,7 +31,18 @@ const Layout = ({ children, location, title }) => {
     <Wrapper>
       <Header location={location} title={title} />
       <Main>{children}</Main>
-      <Footer>Copyright © {new Date().getFullYear()} Nick S. Plekhanov</Footer>
+      <Footer>
+        Copyright © 2019
+        <span
+          css={css`
+            margin-left: 1px;
+            letter-spacing: 1px;
+          `}
+        >
+          ...
+        </span>
+        {new Date().getFullYear()} Nick S. Plekhanov
+      </Footer>
     </Wrapper>
   )
 }
