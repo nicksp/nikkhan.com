@@ -1,3 +1,5 @@
+import './global.css'
+
 import Typography from 'typography'
 import sternGroveTheme from 'typography-theme-stern-grove'
 
