@@ -7,7 +7,7 @@ class Footer extends Component {
     return (
       <footer
         style={{
-          marginTop: rhythm(2.5),
+          marginTop: rhythm(1.25),
           paddingTop: rhythm(1)
         }}
       >
