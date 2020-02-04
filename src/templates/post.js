@@ -4,16 +4,19 @@ import HyvorTalk from 'hyvor-talk-react'
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer'
 
 import Bio from '../components/bio'
+import Meta from '../components/meta'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 
-import { rhythm, scale } from '../utils/typography'
+import { rhythm } from '../utils/typography'
 
 class BlogPostTemplate extends Component {
   render() {
-    const post = this.props.data.mdx
-    const siteTitle = this.props.data.site.siteMetadata.title
+    const { mdx, site } = this.props.data
     const { previous, next } = this.props.pageContext
+    const post = mdx
+    const { editLink, slug } = post.fields
+    const siteTitle = site.siteMetadata.title
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -26,30 +29,21 @@ class BlogPostTemplate extends Component {
             <h1
               style={{
                 marginTop: rhythm(1),
-                marginBottom: 0
+                marginBottom: rhythm(1)
               }}
             >
               {post.frontmatter.title}
             </h1>
-            <p
-              style={{
-                ...scale(-1 / 5),
-                display: `block`,
-                marginBottom: rhythm(1)
-              }}
-            >
-              {post.frontmatter.date}
-            </p>
           </header>
           <section>
             <MDXRenderer>{post.body}</MDXRenderer>
           </section>
 
-          <HyvorTalk.Embed
-            websiteId={206}
-            id={post.fields.slug}
-            loadMode="scroll"
-          />
+          <Meta postDate={post.frontmatter.date} editLink={editLink} />
+
+          {process.env.NODE_ENV === 'production' && (
+            <HyvorTalk.Embed websiteId={206} id={slug} loadMode="scroll" />
+          )}
 
           <hr
             style={{
@@ -107,6 +101,7 @@ export const pageQuery = graphql`
       excerpt(pruneLength: 160)
       fields {
         slug
+        editLink
       }
       frontmatter {
         title

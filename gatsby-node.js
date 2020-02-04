@@ -65,5 +65,12 @@ exports.onCreateNode = ({ node, actions: { createNodeField }, getNode }) => {
       node,
       value
     })
+
+    const parsedPostPath = node.fileAbsolutePath.replace(__dirname, '')
+    createNodeField({
+      name: 'editLink',
+      node,
+      value: `https://github.com/nicksp/nikkhan.com/edit/master${parsedPostPath}`
+    })
   }
 }

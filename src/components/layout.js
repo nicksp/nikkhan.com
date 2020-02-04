@@ -12,7 +12,7 @@ const Wrapper = styled('div')`
   min-height: 100vh;
   padding: 0 1rem;
   @media (max-width: 1400px) {
-    max-width: 600;
+    max-width: 600px;
   }
 `
 
