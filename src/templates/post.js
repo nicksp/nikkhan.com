@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link, graphql } from 'gatsby'
+import HyvorTalk from 'hyvor-talk-react'
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer'
 
 import Bio from '../components/bio'
@@ -43,6 +44,13 @@ class BlogPostTemplate extends Component {
           <section>
             <MDXRenderer>{post.body}</MDXRenderer>
           </section>
+
+          <HyvorTalk.Embed
+            websiteId={206}
+            id={post.fields.slug}
+            loadMode="scroll"
+          />
+
           <hr
             style={{
               marginBottom: rhythm(1)
@@ -97,6 +105,9 @@ export const pageQuery = graphql`
     mdx(fields: { slug: { eq: $slug } }) {
       id
       excerpt(pruneLength: 160)
+      fields {
+        slug
+      }
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")

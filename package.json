@@ -63,6 +63,7 @@
     "gatsby-source-filesystem": "^2.1.47",
     "gatsby-transformer-remark": "^2.6.49",
     "gatsby-transformer-sharp": "^2.3.13",
+    "hyvor-talk-react": "^1.0.1",
     "prism-themes": "^1.3.0",
     "prismjs": "^1.19.0",
     "prop-types": "^15.7.2",
