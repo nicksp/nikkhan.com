@@ -23,6 +23,10 @@ yarn start
 
 Browse to [http://localhost:8000/](http://localhost:8000/) to preview website.
 
+## 🐞Issue
+
+If you find any typos or you have any comments on the posts or notes, please feel free to [open an issue](https://github.com/nicksp/nikkhan.com/issues/new/choose).
+
 ## 🧔 Author
 
 - [Nick S. Plekhanov](https://nikkhan.com/)
