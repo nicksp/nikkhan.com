@@ -7,10 +7,7 @@
 const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 
-exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
-
-  const blogPost = path.resolve(`./src/templates/post.js`)
+exports.createPages = async ({ graphql, actions: { createPage } }) => {
   const result = await graphql(
     `
       {
@@ -22,9 +19,11 @@ exports.createPages = async ({ graphql, actions }) => {
             node {
               fields {
                 slug
+                type
               }
               frontmatter {
                 title
+                date
               }
             }
           }
@@ -40,30 +39,57 @@ exports.createPages = async ({ graphql, actions }) => {
   // Create blog posts pages
   const posts = result.data.allMdx.edges
 
-  posts.forEach((post, index) => {
-    const previous = index === posts.length - 1 ? null : posts[index + 1].node
-    const next = index === 0 ? null : posts[index - 1].node
-    const postSlug = post.node.fields.slug
+  const componentMap = {
+    blog: path.resolve(`./src/templates/post.js`),
+    notes: path.resolve(`./src/templates/note.js`)
+  }
 
-    createPage({
-      path: `blog${postSlug}`,
-      component: blogPost,
-      context: {
-        slug: postSlug,
-        previous,
-        next
-      }
-    })
+  // Split into different lists for easier filtering
+  const notes = []
+  const blogs = []
+  const others = []
+
+  posts.forEach(post => {
+    switch (post.node.fields.type) {
+      case 'notes':
+        return notes.push(post)
+      case 'blog':
+        return blogs.push(post)
+      default:
+        return others.push(post)
+    }
   })
+
+  const lists = [notes, blogs, others]
+  for (list of lists) {
+    for (const [index, post] of list.entries()) {
+      const { type: postType, slug } = post.node.fields
+      const previous = index === list.length - 1 ? null : list[index + 1].node
+      const next = index === 0 ? null : list[index - 1].node
+
+      createPage({
+        path: slug,
+        component: componentMap[postType],
+        context: {
+          slug,
+          previous,
+          next
+        }
+      })
+    }
+  }
 }
+
+const regexp = new RegExp(`^${__dirname}/content/([^/]+)/`)
 
 exports.onCreateNode = ({ node, actions: { createNodeField }, getNode }) => {
   if (node.internal.type === 'Mdx') {
+    const postType = node.fileAbsolutePath.match(regexp)[1]
     const value = createFilePath({ node, getNode })
     createNodeField({
       name: 'slug',
       node,
-      value
+      value: `${postType}${value}`
     })
 
     const parsedPostPath = node.fileAbsolutePath.replace(__dirname, '')
@@ -71,6 +97,12 @@ exports.onCreateNode = ({ node, actions: { createNodeField }, getNode }) => {
       name: 'editLink',
       node,
       value: `https://github.com/nicksp/nikkhan.com/edit/master${parsedPostPath}`
+    })
+
+    createNodeField({
+      name: 'type',
+      node,
+      value: postType
     })
   }
 }

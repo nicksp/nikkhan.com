@@ -101,7 +101,9 @@ const IndexPage = ({ location }) => {
           `javascript`,
           `react`,
           `architecture`,
-          `code design`
+          `code design`,
+          `productivity`,
+          `business`
         ]}
       />
       <Wrapper>
@@ -123,8 +125,8 @@ const IndexPage = ({ location }) => {
           <Header>I'm Nick.</Header>
 
           <p>
-            I'm a full stack developer who specializes in Node.js services and
-            React applications.
+            I'm a seasoned fullstack developer who specializes in Node.js
+            services and React applications.
           </p>
           <p>
             This is my digital place to talk about software engineering, and

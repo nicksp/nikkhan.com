@@ -18,7 +18,7 @@ const Wrapper = styled('div')`
 `
 
 const Main = styled('main')`
-  margin: 2.4rem auto;
+  margin: 2.4rem 0;
 `
 
 const Footer = styled('footer')`
@@ -26,10 +26,10 @@ const Footer = styled('footer')`
   text-align: center;
 `
 
-const Layout = ({ children, location, title }) => {
+const Layout = ({ children, location }) => {
   return (
     <Wrapper>
-      <Header location={location} title={title} />
+      <Header location={location} />
       <Main>{children}</Main>
       <Footer>
         Copyright © 2019

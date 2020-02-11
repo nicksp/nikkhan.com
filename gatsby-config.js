@@ -3,7 +3,7 @@ module.exports = {
     title: 'Nick Khan',
     author: 'Nick Khan',
     description:
-      'I’m a fullstack developer, entrepreneur and passionate photographer making the web an awesome place.',
+      'Nick Plekhanov is a seasoned fullstack developer, entrepreneur and passionate photographer making the web an awesome place.',
     lang: 'en',
     menuLinks: [
       {
@@ -13,11 +13,11 @@ module.exports = {
       {
         name: 'Blog',
         link: '/blog/'
+      },
+      {
+        name: 'Notes',
+        link: '/notes'
       }
-      // {
-      //   name: 'Links',
-      //   link: '/links'
-      // }
     ]
   },
   plugins: [
@@ -28,20 +28,13 @@ module.exports = {
         head: true
       }
     },
-    {
+    ...['blog', 'notes', 'assets'].map(type => ({
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/content/blog`,
-        name: 'blog'
+        path: `${__dirname}/content/${type}`,
+        name: type
       }
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        path: `${__dirname}/content/assets`,
-        name: 'assets'
-      }
-    },
+    })),
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
