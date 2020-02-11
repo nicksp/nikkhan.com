@@ -1,10 +1,34 @@
 import React from 'react'
+import styled from '@emotion/styled'
 import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 
 import { rhythm } from '../utils/typography'
+
+const NoteTitle = styled('h3')`
+  font-size: 1.15rem;
+  margin-top: ${rhythm(1 / 1.5)};
+  margin-bottom: ${rhythm(1 / 4)};
+`
+
+const NoteLink = styled(Link)`
+  box-shadow: none;
+  padding-top: 2px;
+  line-height: 1.5;
+  background-image: linear-gradient(
+    to right,
+    #ffbf00a6 70%,
+    #ffbf00a6 0px
+  ) !important;
+  background-size: 4px 13px !important;
+  background-position: 0 98%;
+  background-repeat: repeat-x;
+  padding-left: 1px;
+  padding-right: 1px;
+  padding-bottom: 0;
+`
 
 const Notes = ({ location, data }) => {
   const notes = data.allMdx.edges
@@ -23,24 +47,9 @@ const Notes = ({ location, data }) => {
           }) => (
             <article key={slug}>
               <header>
-                <h3
-                  style={{
-                    fontSize: '1.15rem',
-                    marginTop: rhythm(1 / 1.5),
-                    marginBottom: rhythm(1 / 4)
-                  }}
-                >
-                  <Link
-                    style={{
-                      boxShadow: `none`,
-                      paddingTop: `2px`,
-                      lineHeight: 1.7
-                    }}
-                    to={slug}
-                  >
-                    {`[${date}] ${title}`}
-                  </Link>
-                </h3>
+                <NoteTitle>
+                  <NoteLink to={slug}>{`[${date}] ${title}`}</NoteLink>
+                </NoteTitle>
               </header>
             </article>
           )
