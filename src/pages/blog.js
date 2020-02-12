@@ -27,6 +27,10 @@ const PostLink = styled(Link)`
   padding-left: 1px;
   padding-right: 1px;
   padding-bottom: 0;
+
+  &:hover {
+    background-position: 0 98%;
+  }
 `
 
 const DateMeta = styled('small')`
